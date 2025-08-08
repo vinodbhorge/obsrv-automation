@@ -313,8 +313,9 @@ postgresql-migration:
 prometheus: &prometheus
   url: http://monitoring-kube-prometheus-prometheus.sunbird.svc.cluster.local:9090
 
-loki:
+loki: &loki
   namespace: *loki-namespace
+  url: http://loki-gateway.sunbird.svc.cluster.local
 
 promtail:
   namespace: *loki-namespace
@@ -610,3 +611,4 @@ global:
   redis: *valkey_denorm
   prometheus: *prometheus
   oauth_configs: *oauth_configs
+  loki: *loki

@@ -1,0 +1,383 @@
+{
+  "id": "fmps-test-dataset",
+  "dataset_id": "fmps-test-dataset",
+  "type": "event",
+  "name": "fmps-test-dataset",
+  "validation_config": {
+    "validate": true,
+    "mode": "Strict"
+  },
+  "extraction_config": {
+    "is_batch_event": true,
+    "extraction_key": "events",
+    "dedup_config": {
+      "drop_duplicates": true,
+      "dedup_key": "id",
+      "dedup_period": 604800
+    }
+  },
+  "data_schema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "definitions": {
+        "key": "definitions",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "additionalProperties": false
+      },
+      "dependencies": {
+        "key": "dependencies",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "additionalProperties": false
+      },
+      "$recursiveAnchor": {
+        "key": "$recursiveAnchor",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "disableActions": true,
+        "isModified": true,
+        "additionalProperties": false
+      },
+      "$recursiveRef": {
+        "key": "$recursiveRef",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "disableActions": true,
+        "isModified": true,
+        "additionalProperties": false
+      },
+      "actor": {
+        "key": "actor",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "properties": {
+          "id": {
+            "key": "id",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "type": {
+            "key": "type",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "eid": {
+        "key": "eid",
+        "type": "string",
+        "arrival_format": "text",
+        "data_type": "string",
+        "isRequired": false,
+        "resolved": true
+      },
+      "ets": {
+        "key": "ets",
+        "type": "integer",
+        "arrival_format": "number",
+        "data_type": "epoch",
+        "isRequired": false,
+        "resolved": true,
+        "disableActions": true,
+        "isModified": true
+      },
+      "edata": {
+        "key": "edata",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "properties": {
+          "type": {
+            "key": "type",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "message": {
+            "key": "message",
+            "type": {
+              "0": "string",
+              "1": "object",
+              "2": "null"
+            },
+            "arrival_format": "",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "mode": {
+            "key": "mode",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "params": {
+            "key": "params",
+            "type": "object",
+            "arrival_format": "object",
+            "data_type": "object",
+            "isRequired": false,
+            "resolved": true,
+            "additionalProperties": false
+          },
+          "duration": {
+            "key": "duration",
+            "type": "number",
+            "arrival_format": "number",
+            "data_type": "double",
+            "isRequired": false,
+            "resolved": true
+          },
+          "level": {
+            "key": "level",
+            "type": {
+              "0": "string",
+              "1": "number"
+            },
+            "arrival_format": "",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "pageid": {
+            "key": "pageid",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "summary": {
+            "key": "summary",
+            "type": "array",
+            "arrival_format": "array",
+            "data_type": "array",
+            "isRequired": false,
+            "resolved": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ver": {
+        "key": "ver",
+        "type": "string",
+        "arrival_format": "text",
+        "data_type": "string",
+        "isRequired": false,
+        "resolved": true
+      },
+      "mid": {
+        "key": "mid",
+        "type": "string",
+        "arrival_format": "text",
+        "data_type": "string",
+        "isRequired": false,
+        "resolved": true
+      },
+      "context": {
+        "key": "context",
+        "type": "object",
+        "arrival_format": "object",
+        "data_type": "object",
+        "isRequired": false,
+        "resolved": true,
+        "properties": {
+          "channel": {
+            "key": "channel",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "pdata": {
+            "key": "pdata",
+            "type": "object",
+            "arrival_format": "object",
+            "data_type": "object",
+            "isRequired": false,
+            "resolved": true,
+            "properties": {
+              "id": {
+                "key": "id",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              },
+              "pid": {
+                "key": "pid",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              },
+              "ver": {
+                "key": "ver",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              }
+            },
+            "additionalProperties": false
+          },
+          "env": {
+            "key": "env",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "sid": {
+            "key": "sid",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "did": {
+            "key": "did",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
+          },
+          "cdata": {
+            "key": "cdata",
+            "type": "array",
+            "arrival_format": "array",
+            "data_type": "array",
+            "isRequired": false,
+            "resolved": true
+          },
+          "rollup": {
+            "key": "rollup",
+            "type": "object",
+            "arrival_format": "object",
+            "data_type": "object",
+            "isRequired": false,
+            "resolved": true,
+            "properties": {
+              "l1": {
+                "key": "l1",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              },
+              "l2": {
+                "key": "l2",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              },
+              "l3": {
+                "key": "l3",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              },
+              "l4": {
+                "key": "l4",
+                "type": "string",
+                "arrival_format": "text",
+                "data_type": "string",
+                "isRequired": false,
+                "resolved": true
+              }
+            },
+            "additionalProperties": false
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "additionalProperties": false
+  },
+  "dedup_config": {
+    "drop_duplicates": false,
+    "dedup_key": "id",
+    "dedup_period": 604800
+  },
+  "denorm_config": {
+    "redis_db_host": "valkey-denorm-headless.redis.svc.cluster.local",
+    "redis_db_port": 6379,
+    "denorm_fields": []
+  },
+  "router_config": {
+    "topic": "fmps-test-dataset"
+  },
+  "dataset_config": {
+    "indexing_config": {
+      "olap_store_enabled": true,
+      "lakehouse_enabled": false,
+      "cache_enabled": false
+    },
+    "keys_config": {
+      "data_key": "",
+      "partition_key": "",
+      "timestamp_key": "obsrv_meta.syncts"
+    },
+    "cache_config": {
+      "redis_db_host": "valkey-denorm-headless.redis.svc.cluster.local",
+      "redis_db_port": 6379,
+      "redis_db": 0
+    },
+    "file_upload_path": [
+      "api-service/user_uploads/dataset-unified_741c44.json"
+    ]
+  },
+  "tags": [],
+  "status": "Live",
+  "created_by": "SYSTEM",
+  "updated_by": "SYSTEM",
+  "data_version": 1,
+  "api_version": "v2",
+  "version": 1,
+  "sample_data": {
+    "mergedEvent": {}
+  },
+  "entry_topic": "ingest"
+}

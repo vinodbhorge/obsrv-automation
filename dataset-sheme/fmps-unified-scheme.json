@@ -1,383 +1,3584 @@
 {
-  "id": "fmps-test-dataset",
-  "dataset_id": "fmps-test-dataset",
-  "type": "event",
-  "name": "fmps-test-dataset",
-  "validation_config": {
-    "validate": true,
-    "mode": "Strict"
-  },
-  "extraction_config": {
-    "is_batch_event": true,
-    "extraction_key": "events",
-    "dedup_config": {
-      "drop_duplicates": true,
-      "dedup_key": "id",
-      "dedup_period": 604800
-    }
-  },
-  "data_schema": {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "http://api.ekstep.org/telemetry/event",
+    "$vocabulary": {
+        "https://json-schema.org/draft/2020-12/vocab/core": true,
+        "https://json-schema.org/draft/2020-12/vocab/applicator": true,
+        "https://json-schema.org/draft/2020-12/vocab/unevaluated": true,
+        "https://json-schema.org/draft/2020-12/vocab/validation": true,
+        "https://json-schema.org/draft/2020-12/vocab/meta-data": true,
+        "https://json-schema.org/draft/2020-12/vocab/format-annotation": true,
+        "https://json-schema.org/draft/2020-12/vocab/content": true
+    },
+    "$dynamicAnchor": "meta",
+    "title": "Telemetry Event Schema",
     "type": "object",
+    "additionalProperties": true,
+    "unevaluatedProperties": true,
     "properties": {
-      "definitions": {
-        "key": "definitions",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "additionalProperties": false
-      },
-      "dependencies": {
-        "key": "dependencies",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "additionalProperties": false
-      },
-      "$recursiveAnchor": {
-        "key": "$recursiveAnchor",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "disableActions": true,
-        "isModified": true,
-        "additionalProperties": false
-      },
-      "$recursiveRef": {
-        "key": "$recursiveRef",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "disableActions": true,
-        "isModified": true,
-        "additionalProperties": false
-      },
-      "actor": {
-        "key": "actor",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "properties": {
-          "id": {
-            "key": "id",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "type": {
-            "key": "type",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "eid": {
-        "key": "eid",
-        "type": "string",
-        "arrival_format": "text",
-        "data_type": "string",
-        "isRequired": false,
-        "resolved": true
-      },
-      "ets": {
-        "key": "ets",
-        "type": "integer",
-        "arrival_format": "number",
-        "data_type": "epoch",
-        "isRequired": false,
-        "resolved": true,
-        "disableActions": true,
-        "isModified": true
-      },
-      "edata": {
-        "key": "edata",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "properties": {
-          "type": {
-            "key": "type",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "message": {
-            "key": "message",
-            "type": {
-              "0": "string",
-              "1": "object",
-              "2": "null"
-            },
-            "arrival_format": "",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "mode": {
-            "key": "mode",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "params": {
-            "key": "params",
+        "definitions": {
+            "$comment": "\"definitions\" has been replaced by \"$defs\".",
             "type": "object",
-            "arrival_format": "object",
-            "data_type": "object",
-            "isRequired": false,
-            "resolved": true,
-            "additionalProperties": false
-          },
-          "duration": {
-            "key": "duration",
+            "additionalProperties": {
+                "$dynamicRef": "#meta"
+            },
+            "deprecated": true,
+            "default": {}
+        },
+        "dependencies": {
+            "$comment": "\"dependencies\" has been split and replaced by \"dependentSchemas\" and \"dependentRequired\" in order to serve their differing semantics.",
+            "type": "object",
+            "additionalProperties": {
+                "anyOf": [
+                    {
+                        "$dynamicRef": "#meta"
+                    },
+                    {
+                        "$ref": "meta/validation#/$defs/stringArray"
+                    }
+                ]
+            },
+            "deprecated": true,
+            "default": {}
+        },
+        "$recursiveAnchor": {
+            "$comment": "\"$recursiveAnchor\" has been replaced by \"$dynamicAnchor\".",
+            "$ref": "meta/core#/$defs/anchorString",
+            "deprecated": true
+        },
+        "$recursiveRef": {
+            "$comment": "\"$recursiveRef\" has been replaced by \"$dynamicRef\".",
+            "$ref": "meta/core#/$defs/uriReferenceString",
+            "deprecated": true
+        },
+        "actor": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type",
+                "id"
+            ]
+        },
+        "eid": {
+            "type": "string",
+            "enum": [
+                "START",
+                "END",
+                "IMPRESSION",
+                "INTERACT",
+                "ASSESS",
+                "RESPONSE",
+                "INTERRUPT",
+                "FEEDBACK",
+                "SHARE",
+                "AUDIT",
+                "ERROR",
+                "HEARTBEAT",
+                "LOG",
+                "SEARCH",
+                "EXDATA",
+                "SUMMARY",
+                "METRICS"
+            ],
+            "additionalProperties": true
+        },
+        "ets": {
             "type": "number",
-            "arrival_format": "number",
-            "data_type": "double",
-            "isRequired": false,
-            "resolved": true
-          },
-          "level": {
-            "key": "level",
-            "type": {
-              "0": "string",
-              "1": "number"
-            },
-            "arrival_format": "",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "pageid": {
-            "key": "pageid",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "summary": {
-            "key": "summary",
-            "type": "array",
-            "arrival_format": "array",
-            "data_type": "array",
-            "isRequired": false,
-            "resolved": true
-          }
+            "format": "epoch",
+            "additionalProperties": true
         },
-        "additionalProperties": false
-      },
-      "ver": {
-        "key": "ver",
-        "type": "string",
-        "arrival_format": "text",
-        "data_type": "string",
-        "isRequired": false,
-        "resolved": true
-      },
-      "mid": {
-        "key": "mid",
-        "type": "string",
-        "arrival_format": "text",
-        "data_type": "string",
-        "isRequired": false,
-        "resolved": true
-      },
-      "context": {
-        "key": "context",
-        "type": "object",
-        "arrival_format": "object",
-        "data_type": "object",
-        "isRequired": false,
-        "resolved": true,
-        "properties": {
-          "channel": {
-            "key": "channel",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "pdata": {
-            "key": "pdata",
+        "edata": {
             "type": "object",
-            "arrival_format": "object",
-            "data_type": "object",
-            "isRequired": false,
-            "resolved": true,
+            "additionalProperties": true,
+            "required": [
+                "type"
+            ],
             "properties": {
-              "id": {
-                "key": "id",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              },
-              "pid": {
-                "key": "pid",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              },
-              "ver": {
-                "key": "ver",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              }
-            },
-            "additionalProperties": false
-          },
-          "env": {
-            "key": "env",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "sid": {
-            "key": "sid",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "did": {
-            "key": "did",
-            "type": "string",
-            "arrival_format": "text",
-            "data_type": "string",
-            "isRequired": false,
-            "resolved": true
-          },
-          "cdata": {
-            "key": "cdata",
-            "type": "array",
-            "arrival_format": "array",
-            "data_type": "array",
-            "isRequired": false,
-            "resolved": true
-          },
-          "rollup": {
-            "key": "rollup",
-            "type": "object",
-            "arrival_format": "object",
-            "data_type": "object",
-            "isRequired": false,
-            "resolved": true,
-            "properties": {
-              "l1": {
-                "key": "l1",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              },
-              "l2": {
-                "key": "l2",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              },
-              "l3": {
-                "key": "l3",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              },
-              "l4": {
-                "key": "l4",
-                "type": "string",
-                "arrival_format": "text",
-                "data_type": "string",
-                "isRequired": false,
-                "resolved": true
-              }
-            },
-            "additionalProperties": false
-          }
+                "type": {
+                    "type": "string",
+                    "additionalProperties": true
+                },
+                "message": {
+                    "type": [
+                        "string",
+                        "object",
+                        "null"
+                    ],
+                    "additionalProperties": true
+                },
+                "mode": {
+                    "type": "string",
+                    "additionalProperties": true
+                },
+                "params": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "duration": {
+                    "type": "number",
+                    "additionalProperties": true
+                },
+                "level": {
+                    "type": [
+                        "string",
+                        "number"
+                    ],
+                    "additionalProperties": true
+                },
+                "pageid": {
+                    "type": "string",
+                    "additionalProperties": true
+                },
+                "summary": {
+                    "type": "array",
+                    "items": {
+                        "type": "object"
+                    },
+                    "additionalProperties": true
+                }
+            }
         },
-        "additionalProperties": false
-      }
+        "ver": {
+            "type": "string",
+            "enum": [
+                "3.0",
+                "3.1"
+            ],
+            "additionalProperties": true
+        },
+        "mid": {
+            "type": "string",
+            "minLength": 1,
+            "additionalProperties": true
+        },
+        "context": {
+            "type": "object",
+            "properties": {
+                "channel": {
+                    "type": "string",
+                    "minLength": 1,
+                    "additionalProperties": true
+                },
+                "pdata": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "pid": {
+                            "type": "string"
+                        },
+                        "ver": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "id"
+                    ],
+                    "additionalProperties": true
+                },
+                "env": {
+                    "type": "string",
+                    "additionalProperties": true
+                },
+                "sid": {
+                    "type": "string",
+                    "additionalProperties": true
+                },
+                "did": {
+                    "type": "string",
+                    "additionalProperties": true
+                },
+                "cdata": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "type": {
+                                "type": "string"
+                            },
+                            "id": {
+                                "type": "string"
+                            }
+                        },
+                        "additionalProperties": true,
+                        "required": [
+                            "type",
+                            "id"
+                        ]
+                    }
+                },
+                "rollup": {
+                    "type": "object",
+                    "properties": {
+                        "l1": {
+                            "type": "string"
+                        },
+                        "l2": {
+                            "type": "string"
+                        },
+                        "l3": {
+                            "type": "string"
+                        },
+                        "l4": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "required": [
+                "channel",
+                "env",
+                "pdata"
+            ],
+            "additionalProperties": true
+        }
     },
-    "additionalProperties": false
-  },
-  "dedup_config": {
-    "drop_duplicates": false,
-    "dedup_key": "id",
-    "dedup_period": 604800
-  },
-  "denorm_config": {
-    "redis_db_host": "valkey-denorm-headless.redis.svc.cluster.local",
-    "redis_db_port": 6379,
-    "denorm_fields": []
-  },
-  "router_config": {
-    "topic": "fmps-test-dataset"
-  },
-  "dataset_config": {
-    "indexing_config": {
-      "olap_store_enabled": true,
-      "lakehouse_enabled": false,
-      "cache_enabled": false
-    },
-    "keys_config": {
-      "data_key": "",
-      "partition_key": "",
-      "timestamp_key": "obsrv_meta.syncts"
-    },
-    "cache_config": {
-      "redis_db_host": "valkey-denorm-headless.redis.svc.cluster.local",
-      "redis_db_port": 6379,
-      "redis_db": 0
-    },
-    "file_upload_path": [
-      "api-service/user_uploads/dataset-unified_741c44.json"
+    "oneOf": [
+        {
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "START"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "dspec": {
+                                    "type": "object",
+                                    "properties": {
+                                        "os": {
+                                            "type": "string"
+                                        },
+                                        "make": {
+                                            "type": "string"
+                                        },
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "mem": {
+                                            "type": "number",
+                                            "minimum": -1
+                                        },
+                                        "idisk": {
+                                            "type": "number",
+                                            "minimum": -1
+                                        },
+                                        "edisk": {
+                                            "type": "number",
+                                            "minimum": -1
+                                        },
+                                        "scrn": {
+                                            "type": "number",
+                                            "minimum": -1
+                                        },
+                                        "camera": {
+                                            "type": "string"
+                                        },
+                                        "cpu": {
+                                            "type": "string"
+                                        },
+                                        "sims": {
+                                            "type": "number",
+                                            "minimum": -1
+                                        },
+                                        "cap": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                },
+                                "uaspec": {
+                                    "type": "object",
+                                    "properties": {
+                                        "agent": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        },
+                                        "system": {
+                                            "type": "string"
+                                        },
+                                        "platform": {
+                                            "type": "string"
+                                        },
+                                        "raw": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "loc": {
+                                    "type": "string"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "duration": {
+                                    "type": "number"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time",
+                            "additionalProperties": true
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ],
+                            "additionalProperties": true
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1,
+                            "additionalProperties": true
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "additionalProperties": true,
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "END"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "duration": {
+                                    "type": "number"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                },
+                                "summary": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/impression",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "IMPRESSION"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "pageid",
+                                "uri"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "subtype": {
+                                    "type": "string"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                },
+                                "duration": {
+                                    "type": "number"
+                                },
+                                "uri": {
+                                    "type": "string"
+                                },
+                                "visits": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "objid": {
+                                                "type": "string"
+                                            },
+                                            "objtype": {
+                                                "type": "string"
+                                            },
+                                            "objver": {
+                                                "type": "string"
+                                            },
+                                            "section": {
+                                                "type": "string"
+                                            },
+                                            "index": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "objid",
+                                            "objtype"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/interact",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "INTERACT"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "subtype": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": "string"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                },
+                                "target": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "id",
+                                        "ver",
+                                        "type"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "parent": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "plugin": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "id",
+                                        "ver"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                },
+                                "extra": {
+                                    "type": "object"
+                                },
+                                "duration": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/audit",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "AUDIT"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "props": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "state": {
+                                    "type": "string"
+                                },
+                                "prevstate": {
+                                    "type": "string"
+                                },
+                                "duration": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/start",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "RESPONSE"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "target",
+                                "type",
+                                "values"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "target": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "id",
+                                        "ver",
+                                        "type"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "parent": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "values": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/interrupt",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "INTERRUPT"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/feedback",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "FEEDBACK"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "rating": {
+                                    "type": "number"
+                                },
+                                "comments": {
+                                    "type": "string"
+                                },
+                                "commentid": {
+                                    "type": "string"
+                                },
+                                "commenttxt": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/share",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "SHARE"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "items"
+                            ],
+                            "properties": {
+                                "dir": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "items": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "additionalProperties": true,
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "ver": {
+                                                "type": "string"
+                                            },
+                                            "params": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "origin": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            },
+                                            "to": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string"
+                                                    },
+                                                    "type": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/audit",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "AUDIT"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "props": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string"
+                                    }
+                                },
+                                "state": {
+                                    "type": "string"
+                                },
+                                "prevstate": {
+                                    "type": "string"
+                                },
+                                "duration": {
+                                    "type": "number"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/error",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "ERROR"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "err",
+                                "errtype",
+                                "stacktrace"
+                            ],
+                            "properties": {
+                                "err": {
+                                    "type": "string"
+                                },
+                                "errtype": {
+                                    "type": "string"
+                                },
+                                "stacktrace": {
+                                    "type": "string"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                },
+                                "object": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "id",
+                                        "type",
+                                        "ver"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "type": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        },
+                                        "subtype": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "code": {
+                                            "type": "string"
+                                        },
+                                        "parent": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "type": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                },
+                                "plugin": {
+                                    "type": "object",
+                                    "additionalProperties": true,
+                                    "required": [
+                                        "id",
+                                        "ver"
+                                    ],
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        },
+                                        "category": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/heartbeat",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "HEARTBEAT"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object"
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/log",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "LOG"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "level",
+                                "message"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "level": {
+                                    "type": "string"
+                                },
+                                "message": {
+                                    "type": "string"
+                                },
+                                "pageid": {
+                                    "type": "string"
+                                },
+                                "params": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/search",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "SEARCH"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "query",
+                                "size",
+                                "topn"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "query": {
+                                    "type": "string"
+                                },
+                                "filters": {
+                                    "type": "object"
+                                },
+                                "sort": {
+                                    "type": "object"
+                                },
+                                "correlationid": {
+                                    "type": "string"
+                                },
+                                "size": {
+                                    "type": "number"
+                                },
+                                "topn": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/exdata",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "EXDATA"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "data": {
+                                    "type": "string"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/summary",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "SUMMARY"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "starttime",
+                                "endtime",
+                                "timespent",
+                                "pageviews",
+                                "interactions"
+                            ],
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "mode": {
+                                    "type": "string"
+                                },
+                                "starttime": {
+                                    "type": "number"
+                                },
+                                "endtime": {
+                                    "type": "number"
+                                },
+                                "timespent": {
+                                    "type": "number"
+                                },
+                                "pageviews": {
+                                    "type": "number"
+                                },
+                                "interactions": {
+                                    "type": "number"
+                                },
+                                "extra": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            "id": "http://api.ekstep.org/telemetry/metrics",
+            "type": "object",
+            "required": [
+                "eid",
+                "ets",
+                "ver",
+                "mid",
+                "actor",
+                "context",
+                "edata"
+            ],
+            "allOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "ets": {
+                            "type": "number",
+                            "format": "date-time"
+                        },
+                        "ver": {
+                            "type": "string",
+                            "enum": [
+                                "3.0",
+                                "3.1"
+                            ]
+                        },
+                        "mid": {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        "actor": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                }
+                            },
+                            "additionalProperties": true,
+                            "required": [
+                                "type",
+                                "id"
+                            ]
+                        },
+                        "context": {
+                            "type": "object",
+                            "properties": {
+                                "channel": {
+                                    "type": "string",
+                                    "minLength": 1
+                                },
+                                "pdata": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string"
+                                        },
+                                        "pid": {
+                                            "type": "string"
+                                        },
+                                        "ver": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "id"
+                                    ]
+                                },
+                                "env": {
+                                    "type": "string"
+                                },
+                                "sid": {
+                                    "type": "string"
+                                },
+                                "did": {
+                                    "type": "string"
+                                },
+                                "cdata": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "type": {
+                                                "type": "string"
+                                            },
+                                            "id": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "additionalProperties": true,
+                                        "required": [
+                                            "type",
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            },
+                            "required": [
+                                "channel",
+                                "env",
+                                "pdata"
+                            ]
+                        },
+                        "object": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string"
+                                },
+                                "type": {
+                                    "type": "string"
+                                },
+                                "ver": {
+                                    "type": "string"
+                                },
+                                "rollup": {
+                                    "type": "object",
+                                    "properties": {
+                                        "l1": {
+                                            "type": "string"
+                                        },
+                                        "l2": {
+                                            "type": "string"
+                                        },
+                                        "l3": {
+                                            "type": "string"
+                                        },
+                                        "l4": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tags": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                {
+                    "properties": {
+                        "eid": {
+                            "enum": [
+                                "METRICS"
+                            ]
+                        },
+                        "edata": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "required": [
+                                "system",
+                                "subsystem"
+                            ],
+                            "properties": {
+                                "system": {
+                                    "type": "string"
+                                },
+                                "subsystem": {
+                                    "type": "string"
+                                },
+                                "metrics": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "metric": {
+                                                "type": "string"
+                                            },
+                                            "value": {
+                                                "type": "number"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
     ]
-  },
-  "tags": [],
-  "status": "Live",
-  "created_by": "SYSTEM",
-  "updated_by": "SYSTEM",
-  "data_version": 1,
-  "api_version": "v2",
-  "version": 1,
-  "sample_data": {
-    "mergedEvent": {}
-  },
-  "entry_topic": "ingest"
 }

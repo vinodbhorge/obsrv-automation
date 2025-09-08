@@ -586,7 +586,7 @@ minio:
 s3-exporter:
   namespace: *s3_exporter_namespace
 
-installer_domain: &installer_domain "dev.maharat.fmps.ma"
+fmps_domain: &fmps_domain "dev.maharat.fmps.ma" # Update with the FMPS domain here
 
 global:
   env: *env
@@ -614,4 +614,4 @@ global:
   prometheus: *prometheus
   oauth_configs: *oauth_configs
   loki: *loki
-  installer_domain: *installer_domain
+  fmps_domain: *fmps_domain

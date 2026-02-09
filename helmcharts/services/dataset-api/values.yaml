@@ -28,6 +28,11 @@ commonLabels:
 
 commonAnnotations: {}
 
+# Pre-upgrade hook configuration
+hooks:
+  grafanaHook:
+    enabled: false
+
 podAnnotations: {}
 
 podSecurityContext:
@@ -46,6 +51,19 @@ securityContext:
 # This block is an interface for k8s service spec.
 service:
   type: ClusterIP
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+
+loadBalancerService:
+  enabled: true
+  type: LoadBalancer
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-internal: "true"
+  externalTrafficPolicy: Local
+  protocol: TCP
   ports:
     - name: http
       port: 3000

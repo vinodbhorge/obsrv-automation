@@ -27,6 +27,10 @@ commonLabels:
 
 commonAnnotations: {}
 
+hooks:
+  grafanaHook:
+    enabled: false
+
 podAnnotations: {}
 
 podSecurityContext:
@@ -186,7 +190,7 @@ env:
   OAUTH_WEB_CONSOLE_URL: "{{.Values.global.domain}}/console"
   AUTH_GOOGLE_CLIENT_ID: "52913780720-2ldmrn41mbhciscjkenepcm76e0g6mh3.apps.googleusercontent.com"
   AUTH_GOOGLE_CLIENT_SECRET: "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"
-  HTTPS: "false"
+  HTTPS: "false"  
   REACT_APP_VERSION: "v1.2.0"
   GENERATE_SOURCEMAP: "false"
   AUTH_AD_URL: "ldap://localhost:3004"
@@ -206,5 +210,5 @@ env:
   KEYCLOAK_CLIENT_ID: "{{ .Values.global.oauth_configs.web_console_client_id }}"
   KEYCLOAK_PUBLIC_CLIENT: "true"
   KEYCLOAK_SSL_REQUIRED: "none"
-  KEYCLOAK_SERVER_URL: "http{{ if .Values.global.ssl_enabled }}s{{ end }}://{{ .Values.global.domain }}/auth"
+  KEYCLOAK_SERVER_URL: "http://localhost:8080/auth"
   STORAGE_TYPES: '{"lake_house":true,"realtime_store":true}'

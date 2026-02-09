@@ -62,7 +62,7 @@ kafka40)
     ;;
 migrations)
     cp -rf ../obsrv migrations
-    cp -rf ../services/{postgresql-migration,kubernetes-reflector,grafana-configs,letsencrypt-ssl} migrations/charts/
+    cp -rf ../services/{postgresql-migration,kubernetes-reflector,letsencrypt-ssl} migrations/charts/
 
     helm $cmd migrations ./migrations -n obsrv -f global-resource-values.yaml -f global-values.yaml -f images.yaml -f $cloud_file_name
     rm -rf migrations
@@ -117,7 +117,7 @@ obsrvtools)
     ;;
 additional)
     cp -rf ../obsrv additional
-    cp -rf ../services/{spark,system-rules-ingestor,secor,druid-exporter,postgresql-exporter,postgresql-backup,kong-ingress-routes,volume-autoscaler,masterdata-indexer-cron} additional/charts/
+    cp -rf ../services/{postgresql-backup,kong-ingress-routes,masterdata-indexer-cron} additional/charts/
     # copy cloud specific helm charts
     case $cloud_env in
     "aws")
@@ -145,8 +145,8 @@ core-setup)
     ;;
 all)
     bash $0 migrations ${@: 2}
-    bash $0 monitoring ${@: 2}
-    bash $0 oauth ${@: 2}
+    # bash $0 monitoring ${@: 2}
+    # bash $0 oauth ${@: 2}
     bash $0 coreinfra ${@: 2}
     bash $0 obsrvapis ${@: 2}
     # We are not installing these for now.

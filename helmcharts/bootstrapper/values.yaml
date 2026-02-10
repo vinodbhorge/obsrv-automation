@@ -1,6 +1,6 @@
 namespaces:
 # - azure-exporter
-- cert-manager
+# - cert-manager
 - command-api
 - dataset-api
 - druid-raw
@@ -8,9 +8,9 @@ namespaces:
 # - hms
 # - kafka
 - kafka40
-- kong-ingress
+# - kong-ingress
 - kubernetes-reflector
-- keycloak
+# - keycloak
 # - loki
 # - minio
 # - monitoring
@@ -18,15 +18,15 @@ namespaces:
 - redis
 - s3-exporter
 - secor
-- spark
+# - spark
 - submit-ingestion
 - superset
-- system-rules-ingestor
+# - system-rules-ingestor
 # - trino
 # - velero
-- volume-autoscaler
+# - volume-autoscaler
 - web-console
-- config-api
+# - config-api
 # - otel
 
 global:

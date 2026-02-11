@@ -49,10 +49,10 @@ jobs:
           aws eks update-kubeconfig --name ${{ inputs.cluster_name }} --region ${{ vars.AWS_REGION }}
           kubectl get nodes
 
-      # - name: Deploy services
-      #   working-directory: helmcharts/kitchen
-      #   env:
-      #     cloud_env: ${{ inputs.cloud_env }}
-      #   run: |
-      #     chmod +x install.sh
-      #     ./install.sh ${{ inputs.service }}
+      - name: Deploy services
+        working-directory: helmcharts/kitchen
+        env:
+          cloud_env: ${{ inputs.cloud_env }}
+        run: |
+          chmod +x install.sh
+          ./install.sh ${{ inputs.service }}

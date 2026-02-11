@@ -66,7 +66,7 @@ druid_selectors_coordinator_serviceName: druid/coordinator
 
 # Monitoring
 druid_monitoring_monitors: '"com.metamx.metrics.JvmMonitor","org.apache.druid.java.util.metrics.JvmMonitor"'
-druid_emitter: "prometheus"
+druid_emitter: "noop"
 druid_emitter_prometheus_strategy: "pushgateway"
 druid_emitter_composing_emitters: '"logging"'
 druid_emitter_logging_logLevel: INFO

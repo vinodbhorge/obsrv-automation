@@ -42,7 +42,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v3
         with:
-          version: 'latest'
+          version: 'v3.17.2'
 
       - name: Configure kubectl
         run: |

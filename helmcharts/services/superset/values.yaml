@@ -571,7 +571,7 @@ albIngress:
   annotations: {}
 
 loadBalancerService:
-  enabled: true
+  enabled: false
   type: LoadBalancer
   scheme: internet-facing
   externalTrafficPolicy: Local

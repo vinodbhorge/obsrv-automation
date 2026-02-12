@@ -566,12 +566,12 @@ service:
   annotations: {}
 
 albIngress:
-  enabled: true
+  enabled: false
   scheme: internet-facing
   annotations: {}
 
 loadBalancerService:
-  enabled: false
+  enabled: true
   type: LoadBalancer
   scheme: internet-facing
   externalTrafficPolicy: Local

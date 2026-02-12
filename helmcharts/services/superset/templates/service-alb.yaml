@@ -1,0 +1,29 @@
+{{- if .Values.loadBalancerService.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "superset.fullname" . }}-alb
+  namespace: {{ include "base.namespace" . }}
+  labels:
+    app: {{ template "superset.name" . }}
+    chart: {{ template "superset.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: external
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: instance
+    service.beta.kubernetes.io/aws-load-balancer-scheme: {{ .Values.loadBalancerService.scheme }}
+spec:
+  type: {{ .Values.loadBalancerService.type }}
+  externalTrafficPolicy: {{ .Values.loadBalancerService.externalTrafficPolicy }}
+  ports:
+  {{- range .Values.loadBalancerService.ports }}
+    - name: {{ .name }}
+      port: {{ .port }}
+      targetPort: {{ .targetPort }}
+      protocol: TCP
+  {{- end }}
+  selector:
+    app: {{ template "superset.name" . }}
+    release: {{ .Release.Name }}
+{{- end }}

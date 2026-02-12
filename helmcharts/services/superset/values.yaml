@@ -565,6 +565,16 @@ service:
   port: 8088
   annotations: {}
 
+loadBalancerService:
+  enabled: true
+  type: LoadBalancer
+  scheme: internet-facing
+  externalTrafficPolicy: Local
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8088
+
 ingress:
   enabled: false
   annotations: {}

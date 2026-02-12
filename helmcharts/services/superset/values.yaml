@@ -565,8 +565,13 @@ service:
   port: 8088
   annotations: {}
 
-loadBalancerService:
+albIngress:
   enabled: true
+  scheme: internet-facing
+  annotations: {}
+
+loadBalancerService:
+  enabled: false
   type: LoadBalancer
   scheme: internet-facing
   externalTrafficPolicy: Local

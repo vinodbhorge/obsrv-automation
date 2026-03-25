@@ -471,8 +471,11 @@ extraSecrets:
 
                 _region = env("COGNITO_REGION", "us-east-1")
                 _domain = env("COGNITO_DOMAIN", "")
+                _custom_domain = env("COGNITO_CUSTOM_DOMAIN", "")
                 userinfo_url = (
-                    f"https://{_domain}.auth.{_region}.amazoncognito.com/oauth2/userInfo"
+                    f"https://{_custom_domain}/oauth2/userInfo"
+                    if _custom_domain
+                    else f"https://{_domain}.auth.{_region}.amazoncognito.com/oauth2/userInfo"
                 )
                 me = self.appbuilder.sm.oauth_remotes[provider].get(userinfo_url)
                 me.raise_for_status()
@@ -576,7 +579,12 @@ configOverrides:
     _cognito_region = os.getenv("COGNITO_REGION", "us-east-1")
     _cognito_domain = os.getenv("COGNITO_DOMAIN", "")
     _cognito_userpool_id = os.getenv("COGNITO_USERPOOL_ID", "")
-    _cognito_base = f"https://{_cognito_domain}.auth.{_cognito_region}.amazoncognito.com"
+    _cognito_custom_domain = os.getenv("COGNITO_CUSTOM_DOMAIN", "")
+    _cognito_base = (
+        f"https://{_cognito_custom_domain}"
+        if _cognito_custom_domain
+        else f"https://{_cognito_domain}.auth.{_cognito_region}.amazoncognito.com"
+    )
 
     AUTH_TYPE = AUTH_OAUTH
 

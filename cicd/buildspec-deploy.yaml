@@ -75,6 +75,9 @@ phases:
     on-failure: ABORT
     commands:
       - export cloud_env=aws
+      # Install ExternalSecrets operator (required for Cognito SSO secrets from AWS Secrets Manager)
+      - helm repo add external-secrets https://charts.external-secrets.io
+      - helm upgrade -i external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
       - time ./install.sh core-setup
       - time ./install.sh all
 

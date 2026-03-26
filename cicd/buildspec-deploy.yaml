@@ -78,6 +78,9 @@ phases:
       # Install ExternalSecrets operator (required for Cognito SSO secrets from AWS Secrets Manager)
       - helm repo add external-secrets https://charts.external-secrets.io
       - helm upgrade -i external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
+      # Wait for ESO CRDs to be fully registered in the API server before proceeding
+      - kubectl wait --for condition=established --timeout=60s crd/externalsecrets.external-secrets.io
+      - kubectl wait --for condition=established --timeout=60s crd/clustersecretstores.external-secrets.io
       - time ./install.sh core-setup
       - time ./install.sh all
 

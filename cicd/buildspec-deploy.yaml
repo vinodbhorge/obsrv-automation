@@ -86,4 +86,34 @@ phases:
 
   post_build:
     commands:
+      - echo "Patching superset-env secret with correct Cognito values from Secrets Manager..."
+      - |
+        SECRET_JSON=$(aws secretsmanager get-secret-value \
+          --secret-id "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq" \
+          --query SecretString --output text)
+        COGNITO_CLIENT_ID=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_ID')
+        COGNITO_CLIENT_SECRET=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_SECRET')
+        COGNITO_CUSTOM_DOMAIN=$(echo $SECRET_JSON | jq -r '.COGNITO_CUSTOM_DOMAIN')
+        COGNITO_REDIRECT_URL=$(echo $SECRET_JSON | jq -r '.COGNITO_REDIRECT_URL')
+        COGNITO_USERPOOL_ID=$(echo $SECRET_JSON | jq -r '.COGNITO_USERPOOL_ID')
+        COGNITO_DOMAIN=$(echo $SECRET_JSON | jq -r '.COGNITO_DOMAIN')
+        COGNITO_REGION=$(echo $SECRET_JSON | jq -r '.COGNITO_REGION')
+        COGNITO_DEFAULT_ROLE=$(echo $SECRET_JSON | jq -r '.COGNITO_DEFAULT_ROLE')
+        DB_USER=$(echo $SECRET_JSON | jq -r '.SUPERSET_DB_USER')
+        DB_PASS=$(echo $SECRET_JSON | jq -r '.SUPERSET_DB_PASS')
+        kubectl patch secret superset-env -n superset --type='json' -p="[
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_CLIENT_ID\",\"value\":\"$(echo -n $COGNITO_CLIENT_ID | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_CLIENT_SECRET\",\"value\":\"$(echo -n $COGNITO_CLIENT_SECRET | base64)\"},
+          {\"op\":\"add\",\"path\":\"/data/COGNITO_CUSTOM_DOMAIN\",\"value\":\"$(echo -n $COGNITO_CUSTOM_DOMAIN | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_REDIRECT_URL\",\"value\":\"$(echo -n $COGNITO_REDIRECT_URL | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_USERPOOL_ID\",\"value\":\"$(echo -n $COGNITO_USERPOOL_ID | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_DOMAIN\",\"value\":\"$(echo -n $COGNITO_DOMAIN | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_REGION\",\"value\":\"$(echo -n $COGNITO_REGION | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/COGNITO_DEFAULT_ROLE\",\"value\":\"$(echo -n $COGNITO_DEFAULT_ROLE | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/DB_USER\",\"value\":\"$(echo -n $DB_USER | base64)\"},
+          {\"op\":\"replace\",\"path\":\"/data/DB_PASS\",\"value\":\"$(echo -n $DB_PASS | base64)\"}
+        ]"
+      - echo "Restarting superset deployment to pick up new secret values..."
+      - kubectl rollout restart deployment/superset -n superset
+      - kubectl rollout status deployment/superset -n superset --timeout=120s
       - echo "Deployment completed successfully."

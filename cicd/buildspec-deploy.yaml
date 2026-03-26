@@ -99,7 +99,7 @@ phases:
         COGNITO_DEFAULT_ROLE=$(echo $SECRET_JSON | jq -r '.COGNITO_DEFAULT_ROLE')
         DB_USER=$(echo $SECRET_JSON | jq -r '.SUPERSET_DB_USER')
         DB_PASS=$(echo $SECRET_JSON | jq -r '.SUPERSET_DB_PASS')
-        echo "COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID:0:5}..."
+        echo "COGNITO_CLIENT_ID=$(echo $COGNITO_CLIENT_ID | cut -c1-5)..."
         echo "COGNITO_CUSTOM_DOMAIN=$COGNITO_CUSTOM_DOMAIN"
         kubectl create secret generic superset-env \
           --namespace superset \

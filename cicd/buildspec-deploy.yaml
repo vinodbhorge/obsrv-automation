@@ -75,22 +75,20 @@ phases:
     on-failure: ABORT
     commands:
       - export cloud_env=aws
-      # Install ExternalSecrets operator (required for Cognito SSO secrets from AWS Secrets Manager)
+      # Install ExternalSecrets operator
       - helm repo add external-secrets https://charts.external-secrets.io
       - helm upgrade -i external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
-      # Wait for ESO CRDs to be fully registered in the API server before proceeding
       - kubectl wait --for condition=established --timeout=60s crd/externalsecrets.external-secrets.io
       - kubectl wait --for condition=established --timeout=60s crd/clustersecretstores.external-secrets.io
       - time ./install.sh core-setup
       - time ./install.sh all
-
-  post_build:
-    commands:
-      - echo "Patching superset-env secret with correct Cognito values from Secrets Manager..."
+      # Fetch Cognito secrets from Secrets Manager and patch superset-env
+      - echo "Fetching Cognito secrets from Secrets Manager..."
       - |
         SECRET_JSON=$(aws secretsmanager get-secret-value \
           --secret-id "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq" \
           --query SecretString --output text)
+        echo "Secret fetch status: $?"
         COGNITO_CLIENT_ID=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_ID')
         COGNITO_CLIENT_SECRET=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_SECRET')
         COGNITO_CUSTOM_DOMAIN=$(echo $SECRET_JSON | jq -r '.COGNITO_CUSTOM_DOMAIN')
@@ -101,19 +99,30 @@ phases:
         COGNITO_DEFAULT_ROLE=$(echo $SECRET_JSON | jq -r '.COGNITO_DEFAULT_ROLE')
         DB_USER=$(echo $SECRET_JSON | jq -r '.SUPERSET_DB_USER')
         DB_PASS=$(echo $SECRET_JSON | jq -r '.SUPERSET_DB_PASS')
-        kubectl patch secret superset-env -n superset --type='json' -p="[
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_CLIENT_ID\",\"value\":\"$(echo -n $COGNITO_CLIENT_ID | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_CLIENT_SECRET\",\"value\":\"$(echo -n $COGNITO_CLIENT_SECRET | base64)\"},
-          {\"op\":\"add\",\"path\":\"/data/COGNITO_CUSTOM_DOMAIN\",\"value\":\"$(echo -n $COGNITO_CUSTOM_DOMAIN | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_REDIRECT_URL\",\"value\":\"$(echo -n $COGNITO_REDIRECT_URL | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_USERPOOL_ID\",\"value\":\"$(echo -n $COGNITO_USERPOOL_ID | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_DOMAIN\",\"value\":\"$(echo -n $COGNITO_DOMAIN | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_REGION\",\"value\":\"$(echo -n $COGNITO_REGION | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/COGNITO_DEFAULT_ROLE\",\"value\":\"$(echo -n $COGNITO_DEFAULT_ROLE | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/DB_USER\",\"value\":\"$(echo -n $DB_USER | base64)\"},
-          {\"op\":\"replace\",\"path\":\"/data/DB_PASS\",\"value\":\"$(echo -n $DB_PASS | base64)\"}
-        ]"
-      - echo "Restarting superset deployment to pick up new secret values..."
+        echo "COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID:0:5}..."
+        echo "COGNITO_CUSTOM_DOMAIN=$COGNITO_CUSTOM_DOMAIN"
+        kubectl create secret generic superset-env \
+          --namespace superset \
+          --from-literal=COGNITO_CLIENT_ID="$COGNITO_CLIENT_ID" \
+          --from-literal=COGNITO_CLIENT_SECRET="$COGNITO_CLIENT_SECRET" \
+          --from-literal=COGNITO_CUSTOM_DOMAIN="$COGNITO_CUSTOM_DOMAIN" \
+          --from-literal=COGNITO_REDIRECT_URL="$COGNITO_REDIRECT_URL" \
+          --from-literal=COGNITO_USERPOOL_ID="$COGNITO_USERPOOL_ID" \
+          --from-literal=COGNITO_DOMAIN="$COGNITO_DOMAIN" \
+          --from-literal=COGNITO_REGION="$COGNITO_REGION" \
+          --from-literal=COGNITO_DEFAULT_ROLE="$COGNITO_DEFAULT_ROLE" \
+          --from-literal=DB_USER="$DB_USER" \
+          --from-literal=DB_PASS="$DB_PASS" \
+          --from-literal=DB_HOST="postgresql-hl.postgresql.svc.cluster.local" \
+          --from-literal=DB_PORT="5432" \
+          --from-literal=DB_NAME="superset" \
+          --from-literal=REDIS_HOST="valkey-dedup-headless.redis.svc.cluster.local" \
+          --from-literal=REDIS_PORT="6379" \
+          --dry-run=client -o yaml | kubectl apply -f -
+        echo "superset-env secret patched successfully"
       - kubectl rollout restart deployment/superset -n superset
       - kubectl rollout status deployment/superset -n superset --timeout=120s
+
+  post_build:
+    commands:
       - echo "Deployment completed successfully."

@@ -584,16 +584,6 @@ configOverrides:
     PUBLIC_ROLE_LIKE = "Admin"
   # map_box_key: |
   #  MAPBOX_API_KEY=''
-  http_headers_config: |
-    # Superset 3.x: use HTTP_HEADERS (not OVERRIDE_HTTP_HEADERS) to allow iframe embedding
-    HTTP_HEADERS = {
-      "X-Frame-Options": "ALLOWALL",
-      "Content-Security-Policy": "frame-ancestors *",
-    }
-    # Also force-override any default headers set by Flask/Talisman
-    TALISMAN_ENABLED = False
-    WTF_CSRF_ENABLED = False
-
 
   oauth: |
     import os

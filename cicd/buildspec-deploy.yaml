@@ -85,10 +85,24 @@ phases:
       # Fetch Cognito secrets from Secrets Manager and patch superset-env
       - echo "Fetching Cognito secrets from Secrets Manager..."
       - |
+        # Re-assume cross-account role since env vars don't persist across phases
+        CREDS_JSON=$(aws sts assume-role \
+          --role-arn "arn:aws:iam::${TF_VAR_aws_account_id}:role/lms-cross-account-codebuild-role" \
+          --role-session-name codebuild-secret-fetch \
+          --duration-seconds 900)
+        export AWS_ACCESS_KEY_ID=$(echo $CREDS_JSON | jq -r .Credentials.AccessKeyId)
+        export AWS_SECRET_ACCESS_KEY=$(echo $CREDS_JSON | jq -r .Credentials.SecretAccessKey)
+        export AWS_SESSION_TOKEN=$(echo $CREDS_JSON | jq -r .Credentials.SessionToken)
+        echo "Re-assumed role, fetching secret..."
         SECRET_JSON=$(aws secretsmanager get-secret-value \
           --secret-id "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq" \
+          --region us-east-1 \
           --query SecretString --output text)
-        echo "Secret fetch status: $?"
+        if [ -z "$SECRET_JSON" ]; then
+          echo "ERROR: Failed to fetch secret from Secrets Manager"
+          exit 1
+        fi
+        echo "Secret fetched successfully"
         COGNITO_CLIENT_ID=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_ID')
         COGNITO_CLIENT_SECRET=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_SECRET')
         COGNITO_CUSTOM_DOMAIN=$(echo $SECRET_JSON | jq -r '.COGNITO_CUSTOM_DOMAIN')

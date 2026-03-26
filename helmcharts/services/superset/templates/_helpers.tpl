@@ -58,8 +58,9 @@ from flask import has_request_context, session, g
 import urllib3
 import redis
 
-# Allow OAuth over HTTP (needed for non-HTTPS environments and proxy setups)
-os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+# Allow OAuth over HTTP only when not running under HTTPS
+if os.getenv("PREFERRED_URL_SCHEME", "http") != "https":
+    os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 
 def env(key, default=None):
     return os.getenv(key, default)

@@ -40,6 +40,10 @@ cognito:
   enabled: true
   region: "us-east-1"
   defaultRole: "Admin"
+  userPoolId: "us-east-1_QuCefvh0J"
+  domain: "dev-lms-domain"
+  customDomain: "idp.dev.lms.cognizant.com"
+  redirectUrl: "https://dashboard.dev.lms.cognizant.com/oauth-authorized/cognito"
   secretStore: "central-account-secret-store"
   secretArn: "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq"
 
@@ -562,7 +566,8 @@ configOverrides:
     }
 
   sql_alchemy_config: |
-    SQLALCHEMY_DATABASE_URI = 'postgresql://{{ tpl .Values.global.postgresql.superset.name . }}:{{ tpl .Values.global.postgresql.superset.password . }}@{{ tpl .Values.global.postgresql.host . }}:{{ tpl (.Values.global.postgresql.port | toString) . }}/{{ tpl .Values.global.postgresql.superset.name . }}'
+    import os
+    SQLALCHEMY_DATABASE_URI = f"postgresql://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
     SQLALCHEMY_TRACK_MODIFICATIONS = True
     SECRET_KEY = 'xCHEuo3xQNLdqgvM7GAR4Gf9kjyQzFzIrGi1maZdb0xibHu47o5hIyAX'
 

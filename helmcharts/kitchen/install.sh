@@ -82,7 +82,7 @@ coreinfra)
     cp -rf ../obsrv coreinfra
     cp -rf ../services/{druid-raw-cluster,flink,superset} coreinfra/charts/
 
-    helm $cmd coreinfra ./coreinfra -n obsrv -f global-resource-values.yaml -f global-values.yaml -f images.yaml -f $cloud_file_name
+    helm $cmd coreinfra ./coreinfra -n obsrv -f global-resource-values.yaml -f global-values.yaml -f images.yaml -f $cloud_file_name --wait --timeout 10m
     rm -rf coreinfra
     ;;
 obsrvapis)

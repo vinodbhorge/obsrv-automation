@@ -75,12 +75,15 @@ phases:
     on-failure: ABORT
     commands:
       - export cloud_env=aws
-      # Install ExternalSecrets operator (required for Cognito SSO secrets from AWS Secrets Manager)
+      # Step 1: Install ESO CRDs directly via kubectl BEFORE any Helm runs
+      # This ensures CRDs are registered in the API server before Helm's discovery cache is built
+      - kubectl apply -f https://raw.githubusercontent.com/external-secrets/external-secrets/main/deploy/crds/bundle.yaml
+      - kubectl wait --for condition=established --timeout=120s crd/externalsecrets.external-secrets.io
+      - kubectl wait --for condition=established --timeout=120s crd/clustersecretstores.external-secrets.io
+      # Step 2: Install ESO operator via Helm (CRDs already exist, Helm just deploys the controller)
       - helm repo add external-secrets https://charts.external-secrets.io
-      - helm upgrade -i external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait
-      # Wait for ESO CRDs to be fully registered in the API server before proceeding
-      - kubectl wait --for condition=established --timeout=60s crd/externalsecrets.external-secrets.io
-      - kubectl wait --for condition=established --timeout=60s crd/clustersecretstores.external-secrets.io
+      - helm upgrade -i external-secrets external-secrets/external-secrets -n external-secrets --create-namespace --wait --set installCRDs=false
+      # Step 3: Run deployments - Helm now knows about ESO CRDs from the start
       - time ./install.sh core-setup
       - time ./install.sh all
 

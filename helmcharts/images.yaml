@@ -45,7 +45,7 @@ images: &images
   web-console: &web-console # registry: ""
     registry: "061051225269.dkr.ecr.us-east-1.amazonaws.com"
     repository: "lms_sb_obsrv_web_console"
-    tag: "R1_WEB_CONSOLE.200326-12"
+    tag: "R1_WEB_CONSOLE.270326-13"
     digest: ""
 
   ## PIPELINE ENTERPRISE

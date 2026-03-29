@@ -82,10 +82,12 @@ phases:
       - kubectl wait --for condition=established --timeout=60s crd/clustersecretstores.external-secrets.io
       - time ./install.sh core-setup
       - time ./install.sh all
-      # Fetch Cognito secrets from Secrets Manager and patch superset-env
+      # Fetch Cognito secrets from Secrets Manager (same account as CodeBuild role - no cross-account KMS issue)
+      # SUPERSET_SECRET_NAME is passed as a pipeline parameter per environment e.g. lms/dev/superset-cognito
       - echo "Fetching Cognito secrets from Secrets Manager..."
+      - unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
       - aws sts get-caller-identity
-      - SECRET_JSON=$(aws secretsmanager get-secret-value --secret-id "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq" --region us-east-1 --query SecretString --output text) && echo "Secret fetched successfully" || (echo "ERROR fetching secret" && exit 1)
+      - SECRET_JSON=$(aws secretsmanager get-secret-value --secret-id "$SUPERSET_SECRET_NAME" --region us-east-1 --query SecretString --output text) && echo "Secret fetched successfully" || (echo "ERROR fetching secret" && exit 1)
       - COGNITO_CLIENT_ID=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_ID')
       - COGNITO_CLIENT_SECRET=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_SECRET')
       - COGNITO_CUSTOM_DOMAIN=$(echo $SECRET_JSON | jq -r '.COGNITO_CUSTOM_DOMAIN')

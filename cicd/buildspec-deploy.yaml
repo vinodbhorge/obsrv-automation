@@ -88,6 +88,7 @@ phases:
       - unset AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN
       - aws sts get-caller-identity
       - SECRET_JSON=$(aws secretsmanager get-secret-value --secret-id "$SUPERSET_SECRET_NAME" --region us-east-1 --query SecretString --output text) && echo "Secret fetched successfully" || (echo "ERROR fetching secret" && exit 1)
+      - SECRET_JSON=$(echo $SECRET_JSON | tr -d '\000-\037')
       - COGNITO_CLIENT_ID=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_ID')
       - COGNITO_CLIENT_SECRET=$(echo $SECRET_JSON | jq -r '.COGNITO_CLIENT_SECRET')
       - COGNITO_CUSTOM_DOMAIN=$(echo $SECRET_JSON | jq -r '.COGNITO_CUSTOM_DOMAIN')

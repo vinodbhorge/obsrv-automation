@@ -635,6 +635,9 @@ configOverrides:
             "token_endpoint_auth_method": "client_secret_post",
           },
           "redirect_uri": os.getenv("COGNITO_REDIRECT_URL"),
+          "params": {
+            "identity_provider": "CognizantSSO",
+          },
         },
       }
     ]

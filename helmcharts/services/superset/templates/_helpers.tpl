@@ -87,6 +87,21 @@ WTF_CSRF_ENABLED = False
 WTF_CSRF_EXEMPT_LIST = []
 # A CSRF token that expires in 1 year
 WTF_CSRF_TIME_LIMIT = 60 * 60 * 24 * 365
+
+# Disable Flask-Talisman so it does not inject X-Frame-Options or CSP headers.
+# This must be set in the base config (not configOverrides) because Talisman
+# is initialized during app factory startup before override files are processed.
+TALISMAN_ENABLED = False
+TALISMAN_CONFIG = {
+    "force_https": False,
+    "frame_options": "ALLOWALL",
+    "frame_options_allow_from": "*",
+    "content_security_policy": None,
+    "force_https_permanent": False,
+}
+# Clear any default HTTP_HEADERS so X-Frame-Options is not set by Superset itself
+HTTP_HEADERS = {}
+OVERRIDE_HTTP_HEADERS = {}
 class CeleryConfig(object):
     BROKER_URL = f"redis://{env('REDIS_HOST')}:{env('REDIS_PORT')}/0"
     CELERY_IMPORTS = ('superset.sql_lab', )

@@ -109,7 +109,7 @@ phases:
       - kubectl create secret generic superset-env --namespace superset --from-literal=COGNITO_CLIENT_ID="$COGNITO_CLIENT_ID" --from-literal=COGNITO_CLIENT_SECRET="$COGNITO_CLIENT_SECRET" --from-literal=COGNITO_CUSTOM_DOMAIN="$COGNITO_CUSTOM_DOMAIN" --from-literal=COGNITO_REDIRECT_URL="$COGNITO_REDIRECT_URL" --from-literal=COGNITO_USERPOOL_ID="$COGNITO_USERPOOL_ID" --from-literal=COGNITO_DOMAIN="$COGNITO_DOMAIN" --from-literal=COGNITO_REGION="$COGNITO_REGION" --from-literal=COGNITO_DEFAULT_ROLE="$COGNITO_DEFAULT_ROLE" --from-literal=DB_USER="$DB_USER" --from-literal=DB_PASS="$DB_PASS" --from-literal=DB_HOST="postgresql-hl.postgresql.svc.cluster.local" --from-literal=DB_PORT="5432" --from-literal=DB_NAME="superset" --from-literal=REDIS_HOST="valkey-dedup-headless.redis.svc.cluster.local" --from-literal=REDIS_PORT="6379" --dry-run=client -o yaml | kubectl apply -f -
       - echo "superset-env secret patched successfully"
       - kubectl rollout restart deployment/superset -n superset
-      - kubectl rollout status deployment/superset -n superset --timeout=120s
+      - kubectl rollout status deployment/superset -n superset --timeout=300s
 
   post_build:
     commands:

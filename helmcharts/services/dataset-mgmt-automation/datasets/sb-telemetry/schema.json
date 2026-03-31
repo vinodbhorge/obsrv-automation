@@ -668,6 +668,14 @@
             "data_type": "string",
             "isRequired": false,
             "resolved": true
+          },
+          "stageid": {
+            "key": "stageid",
+            "type": "string",
+            "arrival_format": "text",
+            "data_type": "string",
+            "isRequired": false,
+            "resolved": true
           }
         },
         "additionalProperties": false

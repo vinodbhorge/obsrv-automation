@@ -12,8 +12,6 @@ global:
 
 postgresql:
   db_name: "superset"
-  db_username: "superset"
-  db_password: "superset123"
 redis:
   db_index: 3
 
@@ -35,17 +33,6 @@ oauth:
   email_whitelist_regex: ""
   whitelist_domain: ""
   user_registration_role: "Admin"
-
-cognito:
-  enabled: true
-  region: "us-east-1"
-  defaultRole: "Admin"
-  userPoolId: "us-east-1_QuCefvh0J"
-  domain: "dev-lms-domain"
-  customDomain: "idp.dev.lms.cognizant.com"
-  redirectUrl: "https://dashboard.dev.lms.cognizant.com/oauth-authorized/cognito"
-  secretStore: "central-account-secret-store"
-  secretArn: "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq"
 
 serviceAccountName: "superset-sa"
 

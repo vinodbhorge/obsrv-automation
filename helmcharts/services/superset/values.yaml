@@ -61,6 +61,7 @@ envFromSecrets: []
 ##
 extraEnv:
   PREFERRED_URL_SCHEME: "https"
+  COGNITO_ALLOWED_GROUP: "superset-users"
   # Extend timeout to allow long running queries.
   # GUNICORN_TIMEOUT: 300
 
@@ -453,6 +454,18 @@ extraSecrets:
             app.config.setdefault("AUTH_ROLES_MAPPING", {})
             app.config.setdefault("AUTH_TYPE", AUTH_OAUTH)
 
+        def auth_user_oauth(self, userinfo):
+            allowed_group = env("COGNITO_ALLOWED_GROUP", "")
+            if allowed_group:
+                user_groups = userinfo.get("role_keys", [])
+                if allowed_group not in user_groups:
+                    logging.warning(
+                        "User '%s' blocked: not in allowed group '%s'. Groups: %s",
+                        userinfo.get("username"), allowed_group, user_groups,
+                    )
+                    return None
+            return super().auth_user_oauth(userinfo)
+
         def oauth_user_info(self, provider, response=None):
             logging.info("Oauth2 provider: %s", provider)
 
@@ -622,8 +635,10 @@ configOverrides:
     from custom_sso_security_manager import CustomSsoSecurityManager
     CUSTOM_SECURITY_MANAGER = CustomSsoSecurityManager
     AUTH_USER_REGISTRATION = True
-    AUTH_USER_REGISTRATION_ROLE = os.getenv("COGNITO_DEFAULT_ROLE", "Admin")
-    AUTH_ROLES_MAPPING = {}
+    AUTH_USER_REGISTRATION_ROLE = os.getenv("COGNITO_DEFAULT_ROLE", "Gamma")
+    AUTH_ROLES_MAPPING = {
+        "superset-users": ["Admin"],
+    }
     AUTH_ROLES_SYNC_AT_LOGIN = True
 
 configMountPath: "/app/pythonpath"

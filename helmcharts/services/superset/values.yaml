@@ -61,7 +61,7 @@ envFromSecrets: []
 ##
 extraEnv:
   PREFERRED_URL_SCHEME: "https"
-  COGNITO_ALLOWED_GROUP: "superset-users"
+  COGNITO_ALLOWED_GROUP: "us-east-1_QuCefvh0J_superset-users"
   # Extend timeout to allow long running queries.
   # GUNICORN_TIMEOUT: 300
 
@@ -637,7 +637,7 @@ configOverrides:
     AUTH_USER_REGISTRATION = True
     AUTH_USER_REGISTRATION_ROLE = os.getenv("COGNITO_DEFAULT_ROLE", "Gamma")
     AUTH_ROLES_MAPPING = {
-        "superset-users": ["Admin"],
+        "us-east-1_QuCefvh0J_superset-users": ["Admin"],
     }
     AUTH_ROLES_SYNC_AT_LOGIN = True
 

@@ -470,8 +470,21 @@ extraSecrets:
             logging.info("Oauth2 provider: %s", provider)
 
             if provider == "cognito":
+                import base64, json as _json
                 token_data = self.appbuilder.sm.oauth_remotes[provider].token
                 access_token = token_data.get("access_token") if token_data else None
+                id_token = token_data.get("id_token") if token_data else None
+
+                # decode id_token to get cognito:groups (injected by pre-token Lambda)
+                id_claims = {}
+                if id_token:
+                    try:
+                        payload = id_token.split(".")[1]
+                        payload += "=" * (4 - len(payload) % 4)
+                        id_claims = _json.loads(base64.urlsafe_b64decode(payload))
+                        logging.info("ID token claims: %s", id_claims)
+                    except Exception as e:
+                        logging.warning("Failed to decode id_token: %s", e)
 
                 _region = env("COGNITO_REGION", "us-east-1")
                 _domain = env("COGNITO_DOMAIN", "")
@@ -489,6 +502,7 @@ extraSecrets:
                 username = (
                     data.get("username")
                     or data.get("cognito:username")
+                    or id_claims.get("cognito:username")
                     or data.get("sub", "")
                 )
                 first_name = data.get("given_name", "")
@@ -503,7 +517,9 @@ extraSecrets:
                     expires = token_data.get("expires_in", 86400)
                     set_token_for_user(username, access_token, expires)
 
-                groups = data.get("cognito:groups", [])
+                # get groups from id_token first, fallback to userinfo
+                groups = id_claims.get("cognito:groups", data.get("cognito:groups", []))
+                logging.info("User groups: %s", groups)
                 return {
                     "name": data.get("name", f"{first_name} {last_name}".strip()),
                     "email": data.get("email", ""),

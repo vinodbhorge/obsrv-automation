@@ -70,7 +70,7 @@ secor_jobs:
     timestamp_key: "syncts"
   raw-backup:
     <<: *base_config
-    enabled: true
+    enabled: false
     topic: "raw"
     service_name: "raw-backup"
     consumer_group: "raw"
@@ -78,7 +78,7 @@ secor_jobs:
     timestamp_key: "obsrv_meta.syncts"
   unique-backup:
     <<: *base_config
-    enabled: true
+    enabled: false
     topic: "unique"
     service_name: "unique-backup"
     consumer_group: "unique"
@@ -86,7 +86,7 @@ secor_jobs:
     timestamp_key: "obsrv_meta.syncts"
   denorm-backup:
     <<: *base_config
-    enabled: true
+    enabled: false
     topic: "denorm"
     service_name: "denorm-backup"
     consumer_group: "denorm"
@@ -94,7 +94,7 @@ secor_jobs:
     timestamp_key: "obsrv_meta.syncts"
   transform-backup:
     <<: *base_config
-    enabled: true
+    enabled: false
     topic: "transform"
     service_name: "transform-backup"
     consumer_group: "transform"
@@ -102,6 +102,7 @@ secor_jobs:
     timestamp_key: "obsrv_meta.syncts"
   failed-backup:
     <<: *base_config
+    enabled: false
     topic: "failed"
     service_name: "failed-backup"
     consumer_group: "failed"
@@ -109,6 +110,7 @@ secor_jobs:
     timestamp_key: "obsrv_meta.syncts"
   system-events-backup:
     <<: *base_config
+    enabled: false
     topic: "system.events"
     service_name: "system-events-backup"
     consumer_group: "system-events"
@@ -116,6 +118,7 @@ secor_jobs:
     timestamp_key: "obsrv_meta.syncts"
   system-telemetry-backup:
     <<: *base_config
+    enabled: false
     topic: "system.telemetry.events"
     service_name: "system-telemetry-backup"
     consumer_group: "system-telemetry-events"

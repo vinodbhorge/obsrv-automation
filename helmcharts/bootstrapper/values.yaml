@@ -1,33 +1,33 @@
 namespaces:
 # - azure-exporter
-- cert-manager
-- command-api
-- dataset-api
-- dataset-mgmt
-- druid-raw
-- flink
+# - cert-manager
+# - command-api
+# - dataset-api
+# - dataset-mgmt
+# - druid-raw
+# - flink
 # - hms
 # - kafka
 - kafka40
-- kong-ingress
-- kubernetes-reflector
-- keycloak
+# - kong-ingress
+# - kubernetes-reflector
+# - keycloak
 # - loki
 # - minio
 # - monitoring
-- postgresql
-- redis
+# - postgresql
+# - redis
 - s3-exporter
 - secor
-- spark
-- submit-ingestion
-- superset
-- system-rules-ingestor
+# - spark
+# - submit-ingestion
+# - superset
+# - system-rules-ingestor
 # - trino
 # - velero
-- volume-autoscaler
-- web-console
-- config-api
+# - volume-autoscaler
+# - web-console
+# - config-api
 # - otel
 
 global:

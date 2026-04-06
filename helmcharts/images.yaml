@@ -250,9 +250,9 @@ images: &images
     digest: ""
 
   secor: &secor
-    registry: "061051225269.dkr.ecr.us-east-1.amazonaws.com"
-    repository: "lms_sb_secor"
-    tag: "R1_SECOR.020326-2"
+    registry: "ghcr.io"
+    repository: "sanketika-obsrv/secor"
+    tag: "master_fad803a"
     digest: ""
 
   spark: &spark # registry: ""

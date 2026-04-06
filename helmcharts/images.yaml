@@ -252,7 +252,7 @@ images: &images
   secor: &secor
     registry: "ghcr.io"
     repository: "sanketika-obsrv/secor"
-    tag: "master_fad803a"
+    tag: "secor-vul-fixes-v1_6adaf9d"
     digest: ""
 
   spark: &spark # registry: ""

@@ -187,6 +187,8 @@ reset)
     helm uninstall kafka40 -n obsrv
     helm uninstall prerequisites -n obsrv
     helm uninstall obsrv-bootstrap -n obsrv
+    kubectl delete ns obsrv
+    kubectl delete ns sunbird
     ;;
 *)
     if [ ! -d "../services/$1" ]; then

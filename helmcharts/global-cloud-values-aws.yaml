@@ -48,7 +48,7 @@ global:
 
 service_accounts:
   enabled: &create_sa true
-  secor: &sa_annotation
+  secor: &secor_sa_annotation
     eks.amazonaws.com/role-arn: "arn:aws:iam::725876873105:role/spark-test-sunbird-sa"  # Update with the ARN of the IAM role for this service account
   dataset_api: &dataset_api_sa_annotation
     eks.amazonaws.com/role-arn: "arn:aws:iam::725876873105:role/spark-test-sunbird-sa" # Update with the ARN of the IAM role for this service account

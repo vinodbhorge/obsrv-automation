@@ -19,10 +19,10 @@ imagePullSecrets: &imagePullSecrets
 
 images: &images
   ## Obsrv Images
-  command-api: &command-api # registry: ""
-    registry: "061051225269.dkr.ecr.us-east-1.amazonaws.com"
-    repository: "lms_sb_obsrv_api_service"
-    tag: "R2_CMD.200326-29"
+  command-api: &command-api # 
+    registry: *global_registry
+    repository: obsrv-command-service
+    tag: "2.0.0"
     digest: ""
 
   # dataset-api: #open source
@@ -32,9 +32,9 @@ images: &images
   #   digest: ""
 
   dataset-api: &dataset-api # registry: ""
-    registry: "061051225269.dkr.ecr.us-east-1.amazonaws.com"
-    repository: "lms_sb_obsrv_api_service"
-    tag: "R1_API.200326-29"
+    registry: *global_registry
+    repository: obsrv-api-service
+    tag: "2.0.1"
     digest: ""
 
   config-api: &config-api # registry: ""
@@ -43,22 +43,22 @@ images: &images
     digest: ""
 
   web-console: &web-console # registry: ""
-    registry: "061051225269.dkr.ecr.us-east-1.amazonaws.com"
-    repository: "lms_sb_obsrv_web_console"
-    tag: "R1_WEB_CONSOLE.200326-12"
+    registry: *global_registry
+    repository: "obsrv-web-console"
+    tag: "1.4.2"
     digest: ""
 
   ## PIPELINE ENTERPRISE
   unified-pipeline: &unified-pipeline
-    registry: 061051225269.dkr.ecr.us-east-1.amazonaws.com
-    repository: lms_sb_obsrv_core
-    tag: "R1_UNIFIED.110226-4"
+    registry: *global_registry
+    repository: unified-pipeline
+    tag: "2.0.1"
     digest: ""
 
   cache-indexer: &cache-indexer
-    registry: 061051225269.dkr.ecr.us-east-1.amazonaws.com
-    repository: lms_sb_obsrv_core
-    tag: "R2_CACHE.110226-4"
+    registry: *global_registry
+    repository: cache-indexer
+    tag: "2.0.1"
     digest: ""
 
   ## PIPELINE ENTERPRISE - INDIVIDUAL COMPONENTS
@@ -79,9 +79,9 @@ images: &images
     digest: ""
 
   postgresql-backup: &postgresql-backup # registry: ""
-    registry: 061051225269.dkr.ecr.us-east-1.amazonaws.com
-    repository: lms_sb_obsrv_automation
-    tag: "R3_PGBACKUP.100226-3"
+    registry: *global_registry
+    repository: postgresql-backup
+    tag: "17.2-r0"
     digest: ""
 
   postgresql: &postgresql
@@ -137,8 +137,8 @@ images: &images
   #   digest: ""
 
   system-rules-ingestor: &system-rules-ingestor # registry: ""
-    repository: "061051225269.dkr.ecr.us-east-1.amazonaws.com/lms_sb_obsrv_api_service"
-    tag: "R3_SRI.110226-12"
+    repository: "system-rules-ingestor"
+    tag: "1.7.0"
     digest: ""
 
   loki: &loki
@@ -244,9 +244,9 @@ images: &images
   #  digest: "" If uncommented, this will take precendence as per velero chart design
 
   superset: &superset
-    registry: 061051225269.dkr.ecr.us-east-1.amazonaws.com
-    repository: "lms_sb_obsrv_automation"
-    tag: "R4_SUPERSET.100226-3"
+    registry: *global_registry
+    repository: "superset"
+    tag: "4.1.1"
     digest: ""
 
   secor: &secor
@@ -256,9 +256,8 @@ images: &images
     digest: ""
 
   spark: &spark # registry: ""
-    registry: "061051225269.dkr.ecr.us-east-1.amazonaws.com"
-    repository: "lms_sb_obsrv_automation"
-    tag: "R5_SPARK.020326-12"
+    repository: "sanketikahub/spark"
+    tag: "3.5.1-debian-12-r6"
     digest: ""
 
   cert_manager_cainjector: &cert_manager_cainjector
@@ -339,9 +338,9 @@ images: &images
     digest: ""
 
   druid-raw-cluster: &druid-raw-cluster
-    registry: 061051225269.dkr.ecr.us-east-1.amazonaws.com
-    repository: lms_sb_obsrv_automation
-    tag: "R1_DRUID.100226-3"
+    registry: *global_registry
+    repository: druid
+    tag: "32.0.1"
     digest: ""
 
   druid_exporter: &druid_exporter
@@ -398,9 +397,9 @@ images: &images
     tag: "1.26.14-debian-11-r6"
 
   sanketikahub-kubectl: &sanketikahub-kubectl
-    registry: 061051225269.dkr.ecr.us-east-1.amazonaws.com
-    repository: lms_sb_obsrv_automation
-    tag: "R2_KUBECTL.100226-3"
+    registry: *global_registry
+    repository: kubectl
+    tag: "1.32.0-r1"
     digest: ""
 
 # Public charts like bitnami etc

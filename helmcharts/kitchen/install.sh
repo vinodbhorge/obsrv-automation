@@ -62,7 +62,7 @@ kafka40)
     ;;
 migrations)
     cp -rf ../obsrv migrations
-    cp -rf ../services/{postgresql-migration,kubernetes-reflector,letsencrypt-ssl} migrations/charts/
+    cp -rf ../services/{postgresql-migration} migrations/charts/
 
     helm $cmd migrations ./migrations -n obsrv -f global-resource-values.yaml -f global-values.yaml -f images.yaml -f $cloud_file_name
     rm -rf migrations
@@ -117,7 +117,7 @@ obsrvtools)
     ;;
 additional)
     cp -rf ../obsrv additional
-    cp -rf ../services/secor additional/charts/
+    cp -rf ../services/{secor,postgresql-backup,masterdata-indexer-cron} additional/charts/
     # copy cloud specific helm charts
     case $cloud_env in
     "aws")
@@ -155,7 +155,7 @@ all)
     # bash $0 oauth ${@: 2}
     bash $0 coreinfra ${@: 2}
     bash $0 obsrvapis ${@: 2}
-    bash $0 dataset-mgmt ${@: 2}
+    # bash $0 dataset-mgmt ${@: 2}
     # We are not installing these for now.
     # bash $0 hudi ${@: 2}
     # bash $0 otel ${@: 2}

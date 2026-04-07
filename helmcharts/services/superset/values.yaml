@@ -43,7 +43,7 @@ cognito:
   secretStore: "central-account-secret-store"
   secretArn: "arn:aws:secretsmanager:us-east-1:039612885605:secret:lms_sunbird_superset_secrets-ET9Cmq"
 
-serviceAccountName: "superset-sa"
+serviceAccountName: ""
 
 runAsUser: 1000
 
@@ -648,7 +648,7 @@ service:
   annotations: {}
 
 loadBalancerService:
-  enabled: true
+  enabled: false
   type: LoadBalancer
   externalTrafficPolicy: Local
   certificateArn: ""

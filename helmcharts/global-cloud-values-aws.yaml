@@ -30,12 +30,12 @@ global:
     service.beta.kubernetes.io/aws-load-balancer-subnets: "<fill-value>" # Update with the public subnet ID
 
 # Pass certificateArn for superset to access superset using subdomain
-superset:
-  serviceAccountName: ""
-  serviceAccount:
-    create: true
-    name: "superset-sa"
-    # annotations:
+# superset:
+#   serviceAccountName: ""
+#   serviceAccount:
+#     create: false
+#     name: "superset-sa"
+    # annotations:true
     #   eks.amazonaws.com/role-arn: "arn:aws:iam::522814700227:role/lms-cross-account-codebuild-role"
   cognito:
     enabled: false

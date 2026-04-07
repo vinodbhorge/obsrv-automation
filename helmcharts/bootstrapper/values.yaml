@@ -10,7 +10,7 @@ namespaces:
 # - kafka
 - kafka40
 # - kong-ingress
-# - kubernetes-reflector
+- kubernetes-reflector
 # - keycloak
 # - loki
 # - minio

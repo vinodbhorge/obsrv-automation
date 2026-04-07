@@ -20,7 +20,7 @@ namespaces:
 - s3-exporter
 - secor
 # - spark
-# - submit-ingestion
+- submit-ingestion
 - superset
 # - system-rules-ingestor
 # - trino

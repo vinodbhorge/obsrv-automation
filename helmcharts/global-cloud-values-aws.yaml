@@ -31,7 +31,7 @@ global:
 
 # Pass certificateArn for superset to access superset using subdomain
 superset:
-  serviceAccountName: "superset-sa"
+  serviceAccountName: ""
   serviceAccount:
     create: true
     name: "superset-sa"

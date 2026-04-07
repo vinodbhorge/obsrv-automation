@@ -37,7 +37,7 @@ oauth:
   user_registration_role: "Admin"
 
 cognito:
-  enabled: true
+  enabled: false
   region: "us-east-1"
   defaultRole: "Admin"
   secretStore: "central-account-secret-store"

@@ -23,7 +23,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     # Setting of this env variable is done for testing purpose, It needs update
-    environment: production
+    environment: test
     permissions:
       id-token: write
       contents: read
